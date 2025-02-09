@@ -5,8 +5,4 @@ const express = require('express');
 // add a wide number of methods to app variable
 const app = express();
 
-const port = process.env.PORT;
-// start server
-app.listen(port, () => {
-    console.log('Yeah I run');
-});
+module.exports = app;
