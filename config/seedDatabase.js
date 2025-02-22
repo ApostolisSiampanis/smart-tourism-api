@@ -8,7 +8,16 @@ const seedDatabase = async () => {
         if (countryCount === 0) {
             const dataPath = path.join(__dirname, '../data/Merged_Country_Data.json');
             const jsonData = fs.readFileSync(dataPath, 'utf-8');
-            const countries = JSON.parse(jsonData);
+            const rawCountries = JSON.parse(jsonData);
+
+            const countries = rawCountries.map(country => ({
+                Country: country['Country'],
+                QualityOfLife: country['Quality of Life'],
+                Adventure: country['Adventure'],
+                Heritage: country['Heritage'],
+                CostOfLivingIndex: country['Cost of Living Index'],
+                RestaurantPriceIndex: country['Restaurant Price Index']
+            }));
 
             await Country.insertMany(countries);
             console.log('Database seeded successfully');
