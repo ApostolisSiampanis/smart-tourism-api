@@ -2,17 +2,17 @@
 const Country = require('../models/Country');
 
 // getAllCountries function
-exports.getAllCountries = async (req, res) => {
+exports.getAllCountries = async (req, res, next) => {
     try {
         const countries = await Country.find();
         res.json(countries);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 }
 
 // filterCountries function
-exports.filterCountries = async (req, res) => {
+exports.filterCountries = async (req, res, next) => {
     const { criterion, type, limit } = req.query;
 
     try {
@@ -20,17 +20,17 @@ exports.filterCountries = async (req, res) => {
         const countries = await Country.find().sort({ [criterion]: sortOrder }).limit(parseInt(limit));
         res.json(countries);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 }
 
 // updateCountry function
-exports.updateCountry = async (req, res) => {
+exports.updateCountry = async (req, res, next) => {
     try {
         const updatedCountry = await Country.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedCountry);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 }
 
@@ -51,6 +51,6 @@ exports.deleteCountry = async (req, res) => {
         await Country.findByIdAndDelete(req.params.id);
         res.json({ message: 'Country deleted' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 }
