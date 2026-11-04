@@ -99,16 +99,22 @@ server.js                   # Server start-up and database seeding
     npm install
     ```
 
-3. Create a `config.ENV` file in the project root with your own MongoDB Atlas details:
+3. Copy the example environment file and fill in your own MongoDB Atlas details:
 
+    ```bash
+    cp config.env.example config.env
     ```
-    MONGO_USERNAME=<your-username>
-    MONGO_PASSWORD=<your-password>
-    MONGO_CLUSTER=<your-cluster>
-    MONGO_DB_NAME=<your-database>
-    MONGO_APP_NAME=<your-app-name>
-    PORT=8080
-    ```
+
+    | Variable | Description |
+    |---|---|
+    | `MONGO_USERNAME` | MongoDB Atlas database user |
+    | `MONGO_PASSWORD` | Password of the database user |
+    | `MONGO_CLUSTER` | Cluster name (the part before `.mongodb.net`) |
+    | `MONGO_DB_NAME` | Database name |
+    | `MONGO_APP_NAME` | Application name used in the connection string |
+    | `PORT` | Port of the API server (default `8080`) |
+
+    `config.env` is listed in `.gitignore`, so your credentials are never committed.
 
 4. Start the server:
 
